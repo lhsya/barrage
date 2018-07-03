@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+    }
+    .screen {
+        width: 80%;
+        text-align: center;
+        margin: auto;
+        height: 500px;
+        border: 1px solid black;
+    }
+
+    .textStyle {
+        color: red;
+        position: absolute;
+        float: right;
+        margin: auto;
+        right: 10%;
+        animation: mymove 15s linear infinite;
+    }
+
+    .tool{
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    @keyframes mymove {
+        from {
+            right: 10%;
+        }
+        to {
+            right: 89%;
+        }
+    }
+</style>
+<body>
+<div id="bodyHtml">
+    <div class="screen" id="screen">
+
+    </div>
+    <div class="tool">
+        <input type="text" id="inputText">
+        <button onclick="add()">提交</button>
+        <button onclick="clearScreen()">清除</button>
+    </div>
+</div>
+</body>
+
+<script>
+    var screenStr = ['DW', 'SS'];
+    var $screen = document.getElementById("screen");
+    var $text = document.getElementById("inputText");
+    $screen.innerHTML = null;
+
+    function init() {
+        screenStr.forEach((i) => {
+            var topPosition = Math.floor(Math.random() * 450);
+            var para = document.createElement("div");
+            para.className = "textStyle";
+            para.style.top = topPosition + "px";
+            var node = document.createTextNode(i);
+            para.appendChild(node);
+            $screen.appendChild(para);
+        });
+    }
+
+    function add() {
+        var topPosition = Math.floor(Math.random() * 450);
+        screenStr.push($text.value);
+        var para = document.createElement("div");
+        para.className = "textStyle";
+        para.style.top = topPosition + "px";
+        var node = document.createTextNode($text.value);
+        para.appendChild(node);
+        $screen.appendChild(para);
+
+        $text.value = '';
+    }
+
+    function clearScreen() {
+        $screen.innerHTML = '';
+        $text.value = '';
+        screenStr = [];
+        console.log(screenStr)
+    }
+
+    init();
+</script>
+</html>
